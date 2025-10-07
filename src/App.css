@@ -7,114 +7,449 @@
 }
 
 body {
-  background-color: #0f0f0f;
+  background-color: #0a0a0a;
   color: #fff;
+  overflow-x: hidden;
 }
 
-.App-header {
-  min-height: 100vh;
-  padding: 40px 20px;
+/* ===== HEADER / NAVIGATION ===== */
+.App-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
+  backdrop-filter: blur(10px);
+  padding: 20px 5%;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-}
-
-.App-title {
-  font-size: 3rem;
-  letter-spacing: 3px;
-  font-weight: 700;
-  color: #e50914;
-  margin-bottom: 24px;
-  text-shadow: 2px 2px 10px rgba(229, 9, 20, 0.5);
-}
-
-.Movie-search {
-  width: 80%;
-  max-width: 500px;
-  height: 50px;
-  border-radius: 30px;
-  border: none;
-  outline: none;
-  padding: 0 20px;
-  font-size: 1.1rem;
-  background-color: #1c1c1c;
-  color: white;
   transition: all 0.3s ease;
-  margin-bottom: 40px;
 }
 
-.Movie-search:focus {
-  background-color: #2b2b2b;
-  box-shadow: 0 0 10px #e50914;
+.App-navbar.scrolled {
+  background: rgba(0,0,0,0.95);
+  padding: 15px 5%;
 }
 
-/* Container grid */
-.Movie-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+.App-logo {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #e50914;
+  text-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+}
+
+.App-nav {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.App-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.App-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #e50914;
+  transition: width 0.3s ease;
+}
+
+.App-nav a:hover {
+  color: #e50914;
+}
+
+.App-nav a:hover::after {
   width: 100%;
-  max-width: 1100px;
+}
+
+/* ===== HERO SECTION ===== */
+.App-hero {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  overflow: hidden;
+}
+
+.App-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%),
+              url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600') center/cover;
+  z-index: 0;
+}
+
+.App-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(0deg, #0a0a0a 0%, transparent 100%);
+  z-index: 1;
+}
+
+.App-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+  max-width: 800px;
+}
+
+.App-hero-title {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow: 0 0 30px rgba(229, 9, 20, 0.8), 
+               2px 2px 20px rgba(0, 0, 0, 0.9);
+  margin-bottom: 20px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px rgba(229, 9, 20, 0.6), 
+                 2px 2px 15px rgba(0, 0, 0, 0.9);
+  }
+  to {
+    text-shadow: 0 0 40px rgba(229, 9, 20, 1), 
+                 2px 2px 25px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.App-hero-tagline {
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: #ddd;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* ===== SEARCH SECTION ===== */
+.App-search-section {
+  position: relative;
+  z-index: 10;
+  padding: 40px 5%;
+  display: flex;
   justify-content: center;
 }
 
-/* Kartu film */
+.Movie-search {
+  width: 100%;
+  max-width: 600px;
+  height: 60px;
+  border-radius: 50px;
+  border: 2px solid #1c1c1c;
+  outline: none;
+  padding: 0 30px;
+  font-size: 1.1rem;
+  background: rgba(28, 28, 28, 0.8);
+  backdrop-filter: blur(10px);
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+}
+
+.Movie-search:focus {
+  background: rgba(40, 40, 40, 0.9);
+  border-color: #e50914;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4),
+              0 5px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.Movie-search::placeholder {
+  color: #888;
+}
+
+/* ===== MOVIE CONTAINER ===== */
+.App-content {
+  padding: 40px 5%;
+  min-height: 60vh;
+}
+
+.Movie-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== MOVIE CARD ===== */
 .Movie-card {
-  background-color: #1a1a1a;
-  border-radius: 15px;
+  background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(229, 9, 20, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  cursor: pointer;
+}
+
+.Movie-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.Movie-card:hover::before {
+  opacity: 1;
 }
 
 .Movie-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(229, 9, 20, 0.3),
+              0 0 30px rgba(229, 9, 20, 0.2);
 }
 
-/* Gambar film */
+/* ===== MOVIE IMAGE ===== */
 .Movie-image-container {
   width: 100%;
-  height: 320px;
+  height: 360px;
   overflow: hidden;
+  position: relative;
 }
 
 .Movie-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
 }
 
 .Movie-card:hover .Movie-image {
-  transform: scale(1.08);
+  transform: scale(1.15);
 }
 
-/* Info film */
+/* ===== MOVIE INFO ===== */
 .Movie-info {
-  padding: 15px;
+  padding: 20px;
   text-align: left;
+  position: relative;
+  z-index: 2;
 }
 
 .Movie-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: #ffffff;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .Movie-date {
   font-size: 0.9rem;
-  color: #aaaaaa;
-  margin-bottom: 8px;
+  color: #aaa;
+  margin-bottom: 10px;
+  font-weight: 400;
 }
 
 .Movie-rate {
   display: inline-block;
-  background-color: #e50914;
-  padding: 5px 10px;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #e50914 0%, #b20710 100%);
+  padding: 6px 14px;
+  border-radius: 20px;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #fff;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+}
+
+/* ===== ABOUT SECTION ===== */
+.App-about {
+  background: radial-gradient(circle at top, rgba(229, 9, 20, 0.15), transparent 60%), #0a0a0a;
+  padding: 80px 10%;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.App-about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.App-about-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.App-about-title span {
+  color: #e50914;
+  text-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+}
+
+.App-about-text {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: #ccc;
+  line-height: 1.8;
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.App-about-text:hover {
+  color: #f3f3f3;
+}
+
+/* ===== REVISED FOOTER ===== */
+.App-footer {
+  background: #000;
+  border-top: 1px solid #1a1a1a;
+  padding: 60px 5% 40px;
+  margin-top: 0;
+  text-align: center;
+}
+
+.App-footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.App-footer-logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #e50914;
+  letter-spacing: 2px;
+}
+
+.App-footer-social {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.App-footer-social a {
+  color: #888;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.App-footer-social a:hover {
+  color: #e50914;
+  transform: scale(1.1);
+}
+
+.App-footer-text {
+  color: #888;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.App-footer-text span {
+  color: #e50914;
+  font-weight: 600;
+}
+
+.App-footer-line {
+  width: 60%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 20px auto;
+}
+
+.App-contact {
+  margin-top: 20px;
+  text-align: center;
+  color: #ccc;
+}
+
+.App-contact h3 {
+  font-size: 1.3rem;
+  color: #e50914;
+  margin-bottom: 10px;
+}
+
+.App-contact p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.App-contact a {
+  color: #e50914;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.App-contact a:hover {
+  text-decoration: underline;
+}
+.App-contact a:visited {
+  color: #b20710;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .App-nav {
+    display: none;
+  }
+  
+  .App-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .App-hero-tagline {
+    font-size: 1rem;
+  }
+  
+  .Movie-container {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+  }
+  
+  .Movie-image-container {
+    height: 240px;
+  }
+  
+  .Movie-search {
+    height: 50px;
+    font-size: 1rem;
+  }
 }
