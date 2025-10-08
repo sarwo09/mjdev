@@ -26,7 +26,7 @@ const App = () => {
             color: '#888',
           }}
         >
-          {isSearching ? '🔍 Mencari film...' : '📽️ Tidak ada film ditemukan'}
+          {isSearching ? 'Mencari film...' : '📽️ Tidak ada film ditemukan'}
         </div>
       );
     }
